@@ -1,0 +1,26 @@
+body {
+	padding: 1em;
+}
+
+#upload,
+#upload-link,
+#browsers {
+	display: none;
+}
+
+#upload-link {
+	background-color: #f00;
+	color: #fff;
+	font: normal small Helvetica, Arial, sans-serif;
+	padding: 1em;
+}
+
+.thumbnail {
+	display: block;
+	margin: 1em 0 0;
+	width: 100px;
+}
+
+input[type=submit] {
+	margin-top: 1em;
+}
