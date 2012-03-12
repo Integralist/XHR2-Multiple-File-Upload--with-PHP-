@@ -2,10 +2,22 @@ body {
 	padding: 1em;
 }
 
-#upload,
+/* 
+	Can't just set display:none as Chrome will refuse to trigger click event on input 
+	What's odd is that I had display:none set for ages without any issues?
+*/
+#upload {
+	left: -999em;
+	position: absolute;
+}
+
 #upload-link,
 #browsers {
 	display: none;
+}
+
+#bar {
+	display: block;
 }
 
 #upload-link {
