@@ -1,5 +1,5 @@
 #Upload multiple files with native JavaScript (XHR2) and resize images using Canvas
-No Adobe Flash Player plugin needed.
+No Adobe Flash Player plugin needed (plus for fun we invert the colours and change the opacity).
 
 ##Browser Requirements
 * addEventListener
@@ -14,5 +14,4 @@ As of March 2012 the following browsers support the above requirements:
 * Google Chrome 7+
 
 ## Just uploading?
-
 See the `master` branch if you want a script that just uploads files and doesn't try to resize them using `<canvas>`

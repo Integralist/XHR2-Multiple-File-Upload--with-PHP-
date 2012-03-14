@@ -107,6 +107,8 @@ function createImage (source, fileobj, file) {
 
 function modifyImageBeforeAppending (img, file) {
 	var dataurl,
+		imgdata,
+		pix,
 		milliseconds = +new Date(),
 		newCanvas = canvas.cloneNode(false),
         ctx = newCanvas.getContext("2d"),
@@ -121,6 +123,22 @@ function modifyImageBeforeAppending (img, file) {
         
 	// (image, srcX, srcY, srcWidth, srcHeight, newX, newY, newWidth, newHeight);
 	ctx.drawImage(img, 0, 0, orgWidth, orgHeight, 0, 0, newWidth, newHeight);
+	
+	// Let's mess with the colours next…
+	// Grab the image data (x, y, w, h)
+	imgdata = ctx.getImageData(0, 0, newWidth, newHeight);
+	pix = imgdata.data;
+	
+	// Invert the colours
+	for (var i = 0, n = pix.length; i < n; i += 4) {
+		pix[i  ] = 255 - pix[i  ];	// red
+		pix[i+1] = 255 - pix[i+1];	// green
+		pix[i+2] = 255 - pix[i+2];	// blue
+		pix[i+3] = 180; 			// alpha (255 is full opacity)
+	}
+	
+	// Now re-apply the inverted colours to the image
+	ctx.putImageData(imgdata, 0, 0);
 	
 	// Lets see what the canvas is looking like (i.e. display on screen)
 	doc.body.insertBefore(newCanvas, doc.body.firstChild);
