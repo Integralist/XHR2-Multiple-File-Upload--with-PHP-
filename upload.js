@@ -129,13 +129,23 @@ function modifyImageBeforeAppending (img, file) {
 	imgdata = ctx.getImageData(0, 0, newWidth, newHeight);
 	pix = imgdata.data;
 	
+	/*
 	// Invert the colours
 	for (var i = 0, n = pix.length; i < n; i += 4) {
 		pix[i  ] = 255 - pix[i  ];	// red
 		pix[i+1] = 255 - pix[i+1];	// green
 		pix[i+2] = 255 - pix[i+2];	// blue
-		pix[i+3] = 180; 			// alpha (255 is full opacity)
+		pix[i+3] = 180;				// alpha (255 is full opacity)
 	}
+	*/
+	
+	// Convert to greyscale
+	for (var i = 0, n = pix.length; i < n; i += 4) {
+		var grayscale = pix[i  ] * .3 + pix[i+1] * .59 + pix[i+2] * .11; // calculation for greyscale (http://spyrestudios.com/html5-canvas-image-effects-black-white/)
+		pix[i  ] = grayscale;	// red
+		pix[i+1] = grayscale;	// green
+		pix[i+2] = grayscale;	// blue
+	}	
 	
 	// Now re-apply the inverted colours to the image
 	ctx.putImageData(imgdata, 0, 0);
