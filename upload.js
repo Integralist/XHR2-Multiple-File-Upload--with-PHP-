@@ -1,7 +1,7 @@
 /*
  * Required features:
  * 		addEventListener (Google Chrome 1+, FF 1+, IE 9+, Opera 7+, Safari 1+)
- *		canvas ()
+ *		canvas (Google Chrome 4+, FF 2+, IE 9+, Safari 3.1+)
  * 		FileReader (Google Chrome 7+, FF 3.6+, IE 10+)
  *		FormData (Google Chrome 7+, FF 4+, Safari 5+)
  */
