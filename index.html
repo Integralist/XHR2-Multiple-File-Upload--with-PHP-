@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
 	<head>
-		<title>XHR Multiple File Upload</title>
+		<title>XHR Multiple File Upload and Canvas Image Resize</title>
 		<link rel="stylesheet" type="text/css" href="upload.css">
 	</head>
 	<body>
 		<!-- the file input is hidden by CSS-->
-		<input type="file" name="images" id="upload" multiple="true" accept="image/*">
-		<a href="#" id="upload-link">Click here to upload multiple files</a>
+		<input type="file" name="images" id="upload" multiple="true" accept="image/*"><!-- https://developer.mozilla.org/en/HTML/Element/Input#attr-accept -->
+		<a href="#" id="upload-link">Click here to upload multiple files (and have canvas resize them before uploading)</a>
 		<div id="browsers">
 			<p>As of March 2012 the following browsers support the required features to run this demo:</p>
 			<ul>

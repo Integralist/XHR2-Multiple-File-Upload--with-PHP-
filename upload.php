@@ -1,54 +1,40 @@
 <?php
+
+	// THIS SCRIPT HAS SECURITY HOLES YOU COULD DRIVE A TRUCK THROUGH!
+	// NOT FOR PRODUCTION.
+	// MAKE SURE SCRIPT IS MODIFIED TO BE MORE SECURE.
+
+	$final_array = array();
 	
-	$response = "";
-	
-	// http://net.tutsplus.com/tutorials/javascript-ajax/uploading-files-with-ajax/
-	foreach ($_FILES["images"]["error"] as $key => $error) { 
-    	if ($error == UPLOAD_ERR_OK) {  
-        	$name = $_FILES["images"]["name"][$key];
-        	move_uploaded_file( $_FILES["images"]["tmp_name"][$key], "uploaded-images/" . $_FILES['images']['name'][$key]);
-        	$response = "Files have been uploaded";
-    	} else {
-    		$response = $error;
-    	}
+	// Initial loops are to set-up the data to be generated and saved to the server...
+	foreach ($_POST as $value) {
+		$temp_array = array(
+			substr($value[0], 0, strpos($value[0], ".")),
+			(($value[1] == "image/jpeg") ? "jpg" : "png"),
+			substr($value[2], strpos($value[2], ",") + 1)
+		);
+		
+		/*
+			To clarify the above code: this will create an Array consisting of 3 items:
+			File Name
+			File Type
+			Data URI
+		*/
+		
+		array_push($final_array, $temp_array);
 	}
 	
+	// Loop through the array and generate data
+	foreach ($final_array as $img) {
+		$tempName = $img[0];
+		$tempType = $img[1];
+		$tempURI = $img[2];
+
+		// Save the file to the machine (try to make it unique) - original script used move_uploaded_file();
+		file_put_contents("./uploaded-images/$tempName" . mt_rand() . ".$tempType", base64_decode($tempURI));
+	}
+	
+	$response = "If we've gotten this far without an error I'll assume all is good!";
+	
 	echo $response;
-	
-	/*
-	Example of formdata passed through…
-	
-	array(5) { 
-		["name"]=> array(4) { 
-			[0]=> string(13) "Generic-2.jpg" 
-			[1]=> string(13) "Generic-3.jpg" 
-			[2]=> string(13) "Generic-4.jpg" 
-			[3]=> string(13) "Generic-5.jpg" 
-		} 
-		["type"]=> array(4) { 
-			[0]=> string(10) "image/jpeg" 
-			[1]=> string(10) "image/jpeg" 
-			[2]=> string(10) "image/jpeg" 
-			[3]=> string(10) "image/jpeg" 
-		} 
-		["tmp_name"]=> array(4) { 
-			[0]=> string(36) "/Applications/MAMP/tmp/php/phprzscxs" 
-			[1]=> string(36) "/Applications/MAMP/tmp/php/php1cnfqk" 
-			[2]=> string(36) "/Applications/MAMP/tmp/php/phpVkS89p" 
-			[3]=> string(36) "/Applications/MAMP/tmp/php/phptSfmwt" 
-		} 
-		["error"]=> array(4) { 
-			[0]=> int(0) 
-			[1]=> int(0) 
-			[2]=> int(0) 
-			[3]=> int(0) 
-		} 
-		["size"]=> array(4) { 
-			[0]=> int(130120) 
-			[1]=> int(397627) 
-			[2]=> int(578842) 
-			[3]=> int(840531) 
-		} 
-	} 
-	*/
 ?>
